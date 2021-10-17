@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <!--The head tag contains metadata (Data about data) and its content will
+    note be displayed in your App. The content of <head> will only be diplay in the browser
+    developer tool (accessible via ctrl + shift + l ). -->
+    <head>
+    <!--The script tag is to load our script. We can give attributes to the script tag
+    e.g. src='file.js' to source file-->
+    <link rel="shortcut icon" type="image/png" href="img/Cyber_Figther.PNG" />
+    </head>
+    <body>
+    <!--h tag is the heather. The number decide which is the key header and which shows first-->
+        <h1>Notes App</h1>
+        <h2>Take notes and never forget! :)</h2>
+        <h3>Brought to you by Fun Notes</h3>
+        <!--p tag is used for regular paragraphsf-->
+            <p>NOTES APP ORIGINAL</p>
+        <div id='notes'></div>
+            <form id='create-note'>
+                <input type=text placeholder="type new note" name='text'> 
+                <button>Create New Note</button>
+            </form>
+        <input id='search-box' type='text' placeholder='Filter'>
+        <select id='filterBy'>
+            <option value='byEdited'>Sort by last edit</option>
+            <option value='byCreated'>Sort by first created</option>
+            <option value='Alphabetical'>Sort alphabetically</option>    
+        </select> 
+    <!-- Source script. Note: there are several scripts after refactoring -->
+    <!-- Import third party library with <script> and source link -->
+    <!-- Create a unique identifier using uuidv4 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuidv4.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js'></script>
+    <script src='notes-functions.js'></script>
+    <script src='notes-useMe.js'></script>
+
+    </body>
+</html>
+<!--src="https://cdn.jsdelivr.net/npm/uuidv4@6.2.8/build/lib/uuidv4.min.js">-->
+<!--Old uudiv4 - no longer working https://wzrd.in/standalone/uuid%2Fv4@latest-->
