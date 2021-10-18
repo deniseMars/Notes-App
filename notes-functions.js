@@ -50,7 +50,6 @@ let createNoteDOM = function(note){
     checkbox.checked = note.verified
     // each newEL is an hyperlink (aka 'a')
     let newEl = document.createElement('a')
-
     // set up the remove note button
     let button = document.createElement('button')
     button.textContent = 'x'
@@ -75,7 +74,8 @@ let createNoteDOM = function(note){
     
     // set up note text
     if (note.title.length > 0){
-        newEl.textContent = `${note.title}. Note verified ${note.verified}`   
+        // newEl.textContent = `${note.title}. Note verified ${note.verified}` 
+        newEl.textContent = `${note.title}`  
     } else {
 
         newEl.textContent = 'Unnamed note'
@@ -120,6 +120,11 @@ const renderNotes = function(object, filter){
 // create summary
 let getSummary = function(unverifiedNotes){
     let summary = document.createElement('h2')
-    summary.textContent = `You have ${unverifiedNotes.length} non-verified notes`
+    summary.textContent = `You have ${unverifiedNotes.length} incomplete tasks`
     return summary
+}
+
+// Generate last edited message
+const generateLastEdited = function (timestamp){
+    return `Last edited ${moment(timestamp).fromNow()}`
 }

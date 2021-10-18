@@ -21,20 +21,26 @@ if (note === undefined){
 const noteTitle = document.querySelector('#note-title')
 const noteBody = document.querySelector('#note-verified')
 const removeElement = document.querySelector('#remove-note')
+const dateElement = document.querySelector('#last-edited')
 
 // Pre-populate edit page with note info
 noteTitle.value = note.title
 noteBody.value = note.verified 
+dateElement.textContent = generateLastEdited(note.updatedAt)
 
 // Update and save the title
 noteTitle.addEventListener('input', function (e){
     note.title = e.target.value
+    note.updatedAt = moment().valueOf()
+    dateElement.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
 // Update and save the body
 noteBody.addEventListener('input', function(e){
     note.verified = e.target.value
+    note.updatedAt = moment().valueOf()
+    dateElement.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
@@ -47,3 +53,22 @@ removeElement.addEventListener('click', function(e){
 
 // window we use it to interact with the window doc
 // storage event fires every time the local storage changes (e.g. we change note content)
+window.addEventListener('storage', function(e){
+    if (e.key === 'notes') {
+// parse JSON newValue and save in notes array
+        notes = JSON.parse(e.newValue)
+        // duplicate code in case note is deleted (to simmer down)
+        let note = notes.find(function(note){
+            return note.id === getID
+            })
+        // kick out the user if note id is not defined
+        if (note === undefined){
+            // DOES NOT WORK
+            location.assigned('/notesUseMe-app.html')
+            }
+        noteTitle.value = note.title
+        noteBody.value = note.verified
+        dateElement.textContent = generateLastEdited(note.updatedAt)
+    
+    }
+})

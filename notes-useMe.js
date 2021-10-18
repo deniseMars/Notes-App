@@ -29,11 +29,14 @@ document.querySelector('#filterBy').addEventListener('change', function(e){
 document.querySelector('#create-note').addEventListener('submit', function(e){
     e.preventDefault()
     const id = uuidv4()
+    const timestamp = moment().valueOf()
     notes.push({
     // Create unique identifier using the uudiv4 method
         id: id,
         title: e.target.elements.text.value,
-        verified: false,
+        verified: 'Insert description',
+        createdAt: timestamp,
+        updatedAt: timestamp
       
         
     })
@@ -53,11 +56,3 @@ window.addEventListener('storage', function(e){
         renderNotes(notes, filters)
     }
 })
-
-// Use the moment library for dates
-const now = moment()
-// console.log(now.toString())
-// now.subtract(3, 'month').subtract(21, 'days').subtract(25, 'year')
-// const myBD = now.format('MMM D, YYYY')
-// console.log(myBD)
-console.log(now.valueOf())
