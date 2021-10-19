@@ -7,7 +7,8 @@ let notes = getSavedNotes()
 const filters = {
     // we will create a function to filter text, using the values in searchText
         searchText: '',
-        hideVerified: false
+        hideVerified: false,
+        sortBy: 'byEdited'
     }
     
 renderNotes(notes, filters)
@@ -22,7 +23,8 @@ document.querySelector('#search-box').addEventListener('input', function(e){
 
 // Activated dropdown list
 document.querySelector('#filterBy').addEventListener('change', function(e){
-    console.log(e.target.value)
+    filters.sortBy = e.target.value
+    renderNotes(notes, filters)
 })
 
 // create note

@@ -89,16 +89,59 @@ let createNoteDOM = function(note){
         return newNote 
       
 }
+// Sort notes
+const sortNotes = function (notes, sortBy){
+    if (sortBy === 'byEdited'){
+        return notes.sort(function (a, b){
+        // updatedAt is a timestamp. The greater the timestamp the more recent the date it represents
+            if (a.updatedAt > b.updatedAt){
+                return -1
+            } else if (a.updatedAt < b.updatedAt){
+                return 1
+            } else {
+                return 0
+            }
+        })
+
+    } else if (sortBy === 'byCreated'){
+        return notes.sort(function (a, b){
+            if (a.createdAt > b.createdAt){
+                return -1
+            } else if (a.createdAt < b.createdAt){
+                return 1
+            } else {
+                return 0
+            }
+            
+        })
+
+    } else if (sortBy === 'Alphabetical'){
+        return notes.sort(function(a, b){
+            if (a.title.toLowerCase() < b.title.toLowerCase()){
+                return -1
+            } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                return 1               
+            } else {
+                return 0
+            }
+        })
+    } else {
+        return notes
+    }
+
+}
+
 
 
 // Render notes
 const renderNotes = function(object, filter){
+    notes = sortNotes(notes, filters.sortBy)
     let filteredNotes = object.filter(function(note){
         let matchText = note.title.toLowerCase().includes(filter.searchText.toLowerCase())
         let matchCompleted = !filter.hideVerified || !note.verified
         return matchText && matchCompleted
     })
-    // create the filter for the checkbox (to check for verified notes). 
+    // create the filter for the checkbox (to check for completed notes). // initially called 'verified' 
     // Set a new value for filter notes, when we filter by completed
     let unverifiedNotes = filteredNotes.filter(function(note){
         return !note.verified
