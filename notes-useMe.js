@@ -1,4 +1,3 @@
-// NOTE: OLD CODE IS STORED AT THE BUTTON OF THE IDE
 // Here we will begin again our script for the notes-app. Starting clean, keeping 
 // the original for reference on functions.
 let notes = getSavedNotes()
@@ -36,7 +35,8 @@ document.querySelector('#create-note').addEventListener('submit', function(e){
     // Create unique identifier using the uudiv4 method
         id: id,
         title: e.target.elements.text.value,
-        verified: 'Insert description',
+        description: 'Insert description',
+        verified: '',
         createdAt: timestamp,
         updatedAt: timestamp
       

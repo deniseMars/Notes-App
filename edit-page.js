@@ -7,9 +7,8 @@ const getID = location.hash.substring(1)
 // get the notes (localStorage is global)
 let notes = getSavedNotes()
 // see if getID matches the note
-let note = notes.find(function(note){
-    return note.id === getID
-    })
+let note = notes.find((note)=> note.id === getID)
+
 // kick out the user if note id is not defined
 if (note === undefined){
     // DOES NOT WORK
@@ -25,11 +24,11 @@ const dateElement = document.querySelector('#last-edited')
 
 // Pre-populate edit page with note info
 noteTitle.value = note.title
-noteBody.value = note.verified 
+noteBody.value = note.description 
 dateElement.textContent = generateLastEdited(note.updatedAt)
 
 // Update and save the title
-noteTitle.addEventListener('input', function (e){
+noteTitle.addEventListener('input',  (e) => {
     note.title = e.target.value
     note.updatedAt = moment().valueOf()
     dateElement.textContent = generateLastEdited(note.updatedAt)
@@ -37,15 +36,15 @@ noteTitle.addEventListener('input', function (e){
 })
 
 // Update and save the body
-noteBody.addEventListener('input', function(e){
-    note.verified = e.target.value
+noteBody.addEventListener('input', (e) => {
+    note.description = e.target.value
     note.updatedAt = moment().valueOf()
     dateElement.textContent = generateLastEdited(note.updatedAt)
     saveNotes(notes)
 })
 
 // Remove button
-removeElement.addEventListener('click', function(e){
+removeElement.addEventListener('click', (e) => {
     removeNote(note.id)
     saveNotes(notes)
     location.assign('/notesUseMe-app.html')
@@ -58,16 +57,15 @@ window.addEventListener('storage', function(e){
 // parse JSON newValue and save in notes array
         notes = JSON.parse(e.newValue)
         // duplicate code in case note is deleted (to simmer down)
-        let note = notes.find(function(note){
-            return note.id === getID
-            })
+        let note = notes.find((note) => note.id === getID)
+
         // kick out the user if note id is not defined
         if (note === undefined){
             // DOES NOT WORK
             location.assigned('/notesUseMe-app.html')
             }
         noteTitle.value = note.title
-        noteBody.value = note.verified
+        noteBody.value = note.description
         dateElement.textContent = generateLastEdited(note.updatedAt)
     
     }

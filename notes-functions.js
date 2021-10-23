@@ -1,24 +1,19 @@
 // check for existing saved data
-let getSavedNotes = function(){
+let getSavedNotes = () => {
     let notesJSON = localStorage.getItem('notes')
-    if (notesJSON !== null){
-        return JSON.parse(notesJSON)
-    } else {
-        return []
+    return notesJSON !== null ? JSON.parse(notesJSON) : []
     }
-}
 
 // save items in local storage 
-let saveNotes = function(notes){
+let saveNotes = (notes)=> {
     localStorage.setItem('notes', JSON.stringify(notes))
 }
 
 
 // Remove a note by id
-const removeNote = function(id){
-    const noteIndex = notes.findIndex(function(note){
-        return note.id === id
-    }) 
+const removeNote = (id)=> {
+    const noteIndex = notes.findIndex((note) => note.id === id)
+
     // -1 because indexing starts from zero. index -1 would be = undefined
     if (noteIndex > -1) {
         notes.splice(noteIndex, 1)
@@ -27,10 +22,9 @@ const removeNote = function(id){
 }
 // change verified value for note
 let checkNote = function(id){
-    let noteIndex = notes.find(function(note){
-        // return if note (id) exists
-        return note.id === id
-    })
+    // return if note (id) exists
+    let noteIndex = notes.find((note) => note.id === id )
+
         if (noteIndex !== undefined){
         // here we flip the value to its opposite when checking/unchecking
         return noteIndex.verified = !noteIndex.verified
@@ -39,7 +33,7 @@ let checkNote = function(id){
 
 
 // Generate DOM element
-let createNoteDOM = function(note){
+let createNoteDOM = (note) => {
     // crete div and span (p) for each element
     let newNote = document.createElement('div')
     let checkbox = document.createElement('input')
@@ -58,7 +52,7 @@ let createNoteDOM = function(note){
 
 
     // Config button
-    button.addEventListener('click', function(){
+    button.addEventListener('click', () => {
         removeNote(note.id)
         saveNotes(notes)
         renderNotes(notes, filters)   
@@ -90,9 +84,9 @@ let createNoteDOM = function(note){
       
 }
 // Sort notes
-const sortNotes = function (notes, sortBy){
+const sortNotes =  (notes, sortBy) => {
     if (sortBy === 'byEdited'){
-        return notes.sort(function (a, b){
+        return notes.sort( (a, b) => {
         // updatedAt is a timestamp. The greater the timestamp the more recent the date it represents
             if (a.updatedAt > b.updatedAt){
                 return -1
@@ -104,7 +98,7 @@ const sortNotes = function (notes, sortBy){
         })
 
     } else if (sortBy === 'byCreated'){
-        return notes.sort(function (a, b){
+        return notes.sort( (a, b)=> {
             if (a.createdAt > b.createdAt){
                 return -1
             } else if (a.createdAt < b.createdAt){
@@ -116,7 +110,7 @@ const sortNotes = function (notes, sortBy){
         })
 
     } else if (sortBy === 'Alphabetical'){
-        return notes.sort(function(a, b){
+        return notes.sort((a, b) => {
             if (a.title.toLowerCase() < b.title.toLowerCase()){
                 return -1
             } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -134,7 +128,7 @@ const sortNotes = function (notes, sortBy){
 
 
 // Render notes
-const renderNotes = function(object, filter){
+const renderNotes = (object, filter) => {
     notes = sortNotes(notes, filters.sortBy)
     let filteredNotes = object.filter(function(note){
         let matchText = note.title.toLowerCase().includes(filter.searchText.toLowerCase())
@@ -154,20 +148,20 @@ const renderNotes = function(object, filter){
     document.querySelector('#notes').appendChild(getSummary(unverifiedNotes))
 
     // Add paragraph for each filtered note  
-    filteredNotes.forEach(function(note){
+    filteredNotes.forEach((note) => {
         newNote = createNoteDOM(note)
           document.querySelector('#notes').appendChild(newNote)
       })
   
   }
 // create summary
-let getSummary = function(unverifiedNotes){
+let getSummary = (unverifiedNotes)=> {
     let summary = document.createElement('h2')
     summary.textContent = `You have ${unverifiedNotes.length} incomplete tasks`
     return summary
 }
 
 // Generate last edited message
-const generateLastEdited = function (timestamp){
+const generateLastEdited =  (timestamp) => {
     return `Last edited ${moment(timestamp).fromNow()}`
 }
