@@ -1,9 +1,15 @@
+'use strict'
+
 // check for existing saved data
 let getSavedNotes = () => {
     let notesJSON = localStorage.getItem('notes')
-    return notesJSON !== null ? JSON.parse(notesJSON) : []
-    }
-
+    // Try if the data in local storage is valid
+    try {
+        return notesJSON ? JSON.parse(notesJSON) : []
+    } catch (e){
+        return []
+        }
+}
 // save items in local storage 
 let saveNotes = (notes)=> {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -31,7 +37,7 @@ let checkNote = function(id){
     }
 }
 
-
+let ashLink
 // Generate DOM element
 let createNoteDOM = (note) => {
     // crete div and span (p) for each element
@@ -126,7 +132,7 @@ const sortNotes =  (notes, sortBy) => {
 }
 
 
-
+let newNote
 // Render notes
 const renderNotes = (object, filter) => {
     notes = sortNotes(notes, filters.sortBy)

@@ -1,3 +1,5 @@
+'use strict'
+
 document.querySelector('#go-back').addEventListener('click', function(){
     // assign method works as href
     location.assign('/notesUseMe-app.html')
@@ -10,7 +12,7 @@ let notes = getSavedNotes()
 let note = notes.find((note)=> note.id === getID)
 
 // kick out the user if note id is not defined
-if (note === undefined){
+if (!note){
     // DOES NOT WORK
     location.assigned('/notesUseMe-app.html')
     }
@@ -60,7 +62,7 @@ window.addEventListener('storage', function(e){
         let note = notes.find((note) => note.id === getID)
 
         // kick out the user if note id is not defined
-        if (note === undefined){
+        if (!note){
             // DOES NOT WORK
             location.assigned('/notesUseMe-app.html')
             }

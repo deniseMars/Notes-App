@@ -1,3 +1,5 @@
+'use strict'
+
 // Here we will begin again our script for the notes-app. Starting clean, keeping 
 // the original for reference on functions.
 let notes = getSavedNotes()
